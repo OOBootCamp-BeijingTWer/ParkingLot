@@ -1,0 +1,7 @@
+C:\Test\ParkingLot-OoBootCamp\ParkingLot\ParkingLot\bin\Debug\ParkingLot.dll
+C:\Test\ParkingLot-OoBootCamp\ParkingLot\ParkingLot\bin\Debug\ParkingLot.pdb
+C:\Test\ParkingLot-OoBootCamp\ParkingLot\ParkingLot\bin\Debug\xunit.dll
+C:\Test\ParkingLot-OoBootCamp\ParkingLot\ParkingLot\bin\Debug\xunit.xml
+C:\Test\ParkingLot-OoBootCamp\ParkingLot\ParkingLot\obj\Debug\ParkingLot.csprojResolveAssemblyReference.cache
+C:\Test\ParkingLot-OoBootCamp\ParkingLot\ParkingLot\obj\Debug\ParkingLot.dll
+C:\Test\ParkingLot-OoBootCamp\ParkingLot\ParkingLot\obj\Debug\ParkingLot.pdb
