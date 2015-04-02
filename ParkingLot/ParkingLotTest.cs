@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.Collections.Generic;
+using Xunit;
 
 namespace ParkingLot
 {
@@ -10,9 +11,9 @@ namespace ParkingLot
             var car = new Car();
             var parkingLot = new ParkingLot();
 
-            parkingLot.StoreCar(car);
+            var ticket = parkingLot.StoreCar(car);
 
-            var pickedCar = parkingLot.Pick(car);
+            var pickedCar = parkingLot.Pick(ticket);
             Assert.Same(car, pickedCar);
         }
 
@@ -23,11 +24,11 @@ namespace ParkingLot
             var secondCar = new Car();
             var parkingLot = new ParkingLot();
 
-            parkingLot.StoreCar(firstCar);
-            parkingLot.StoreCar(secondCar);
+            var firstTicket = parkingLot.StoreCar(firstCar);
+            var secondTicket = parkingLot.StoreCar(secondCar);
 
-            Assert.Same(firstCar, parkingLot.Pick(firstCar));
-            Assert.Same(secondCar, parkingLot.Pick(secondCar));
+            Assert.Same(firstCar, parkingLot.Pick(firstTicket));
+            Assert.Same(secondCar, parkingLot.Pick(secondTicket));
 
         }
 
@@ -37,24 +38,58 @@ namespace ParkingLot
             var car = new Car();
             var parkingLot = new ParkingLot();
 
-            parkingLot.StoreCar(car);
-            parkingLot.Pick(car);
+            var ticket = parkingLot.StoreCar(car);
+            parkingLot.Pick(ticket);
 
-            Assert.Null(parkingLot.Pick(car));
+            Assert.Null(parkingLot.Pick(ticket));
+        }
 
+        [Fact]
+        public void should_not_pick_any_car_from_parking_lot_given_unkonw_ticket()
+        {
+            var car = new Car();
+            var ticket = new Ticket();
+            var parkingLot = new ParkingLot(car, ticket);
+            var unknowTicket = new Ticket();
+
+            var pickedCar = parkingLot.Pick(unknowTicket);
+
+            Assert.Null(pickedCar);
         }
     }
 
     public class ParkingLot
     {
-        public void StoreCar(Car car)
+        private Dictionary<Ticket, Car> cars = new Dictionary<Ticket, Car>();
+
+        public ParkingLot(Car car, Ticket ticket)
+        {
+            cars.Add(ticket, car);
+        }
+
+        public ParkingLot()
         {
         }
 
-        public Car Pick(Car car)
+        public Ticket StoreCar(Car car)
         {
-            return car;
+            var ticket = new Ticket();
+            cars.Add(ticket, car);
+            return ticket;
         }
+
+        public Car Pick(Ticket ticket)
+        {
+            if (cars.Count == 0 || !cars.ContainsKey(ticket)) return null;
+
+            var pickedCar = cars[ticket];
+            cars.Remove(ticket);
+            return pickedCar;
+        }
+    }
+
+    public class Ticket
+    {
     }
 
     public class Car
