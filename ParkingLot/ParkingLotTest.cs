@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Xunit;
+﻿using Xunit;
 
 namespace ParkingLot
 {
@@ -29,7 +28,6 @@ namespace ParkingLot
 
             Assert.Same(firstCar, parkingLot.Pick(firstTicket));
             Assert.Same(secondCar, parkingLot.Pick(secondTicket));
-
         }
 
         [Fact]
@@ -56,43 +54,5 @@ namespace ParkingLot
 
             Assert.Null(pickedCar);
         }
-    }
-
-    public class ParkingLot
-    {
-        private Dictionary<Ticket, Car> cars = new Dictionary<Ticket, Car>();
-
-        public ParkingLot(Car car, Ticket ticket)
-        {
-            cars.Add(ticket, car);
-        }
-
-        public ParkingLot()
-        {
-        }
-
-        public Ticket StoreCar(Car car)
-        {
-            var ticket = new Ticket();
-            cars.Add(ticket, car);
-            return ticket;
-        }
-
-        public Car Pick(Ticket ticket)
-        {
-            if (cars.Count == 0 || !cars.ContainsKey(ticket)) return null;
-
-            var pickedCar = cars[ticket];
-            cars.Remove(ticket);
-            return pickedCar;
-        }
-    }
-
-    public class Ticket
-    {
-    }
-
-    public class Car
-    {
     }
 }
