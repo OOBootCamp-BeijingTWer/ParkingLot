@@ -7,8 +7,8 @@ namespace ParkingLot
         [Fact]
         public void should_be_able_to_pick_a_car_which_is_stroed_in_parking_lot()
         {
-            var car = new Car();
-            var parkingLot = new ParkingLot();
+            var car = new Car("NB1234");
+            var parkingLot = new ParkingLot(5);
 
             var ticket = parkingLot.StoreCar(car);
 
@@ -19,9 +19,9 @@ namespace ParkingLot
         [Fact]
         public void should_pick_two_cars_given_two_cars_stored_in_parking_lot()
         {
-            var firstCar = new Car();
-            var secondCar = new Car();
-            var parkingLot = new ParkingLot();
+            var firstCar = new Car("NB1234");
+            var secondCar = new Car("NB5678");
+            var parkingLot = new ParkingLot(5);
 
             var firstTicket = parkingLot.StoreCar(firstCar);
             var secondTicket = parkingLot.StoreCar(secondCar);
@@ -33,8 +33,8 @@ namespace ParkingLot
         [Fact]
         public void should_not_pick_one_car_twice_given_the_car_stored_in_parking_lot()
         {
-            var car = new Car();
-            var parkingLot = new ParkingLot();
+            var car = new Car("NB1234");
+            var parkingLot = new ParkingLot(5);
 
             var ticket = parkingLot.StoreCar(car);
             parkingLot.Pick(ticket);
@@ -45,14 +45,48 @@ namespace ParkingLot
         [Fact]
         public void should_not_pick_any_car_from_parking_lot_given_unkonw_ticket()
         {
-            var car = new Car();
-            var ticket = new Ticket();
-            var parkingLot = new ParkingLot(car, ticket);
+            var car = new Car("NB1234");
+            var parkingLot = new ParkingLot(5);
+            parkingLot.StoreCar(car);
             var unknowTicket = new Ticket();
 
             var pickedCar = parkingLot.Pick(unknowTicket);
 
             Assert.Null(pickedCar);
+        }
+
+        [Fact]
+        public void should_not_store_car_when_parking_lot_is_full()
+        {
+            var parkingLot = new ParkingLot(1);
+            parkingLot.StoreCar(new Car("NB1234"));
+
+            var storeFailed = parkingLot.StoreCar(new Car("NB5678"));
+
+            Assert.Null(storeFailed);
+        }
+
+        [Fact]
+        public void should_not_store_one_car_twice()
+        {
+            var parkingLot = new ParkingLot(5);
+            var car = new Car("NB1234");
+            parkingLot.StoreCar(car);
+
+            var ticket = parkingLot.StoreCar(car);
+
+            Assert.Null(ticket);
+        }
+
+        [Fact]
+        public void should_not_store_two_cars_with_same_carNumber()
+        {
+            var parkingLot = new ParkingLot(5);
+            parkingLot.StoreCar(new Car("NB1234"));
+
+            var ticket = parkingLot.StoreCar(new Car("NB1234"));
+
+            Assert.Null(ticket);
         }
     }
 }

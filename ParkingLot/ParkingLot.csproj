@@ -42,8 +42,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Car.cs" />
+    <Compile Include="ParkingLot.cs" />
     <Compile Include="ParkingLotTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ticket.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
